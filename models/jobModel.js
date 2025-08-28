@@ -50,7 +50,7 @@ export const findJobById = async (jobId) => {
 /**
  * Deletes a job by its ID.
  * @param {number} jobId
- * @returns {Promise<number>} The number of affected rows (1 for success, 0 for failure).
+ * @returns {Promise<number>} The number of affected rows (example 1 for success, 0 for failure).
  */
 export const deleteJob = async (jobId) => {
   try {

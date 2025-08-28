@@ -23,7 +23,7 @@ app.use('/jobs', jobsRoutes);
 // Link the applications routes
 app.use('/applications', applicationsRoutes); 
 
-// Define the port from the environment variables or default to 5000
+// Define the port from the environment variables or default to 5000 for localhost
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {

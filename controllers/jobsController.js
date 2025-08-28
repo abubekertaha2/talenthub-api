@@ -1,5 +1,3 @@
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { createJob, findAllJobs, findJobById, deleteJob } from '../models/jobModel.js';
 
 /**
