@@ -23,7 +23,7 @@ import 'dotenv/config';
 import fs from 'fs'; 
 import path from 'path';
 
-const caCertPath = path.resolve('../certs/aiven_ca.pem');
+const caCertPath = path.resolve('./certs/aiven_ca.pem');
 
 // Create the connection pool
 const pool = mysql.createPool({
