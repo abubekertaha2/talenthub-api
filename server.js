@@ -1,5 +1,6 @@
 import express from 'express';
 import 'dotenv/config.js'; 
+import morgan from 'morgan';
 import authRoutes from './routes/authRoutes.js'; 
 import jobsRoutes from './routes/jobsRoutes.js'; 
 import applicationsRoutes from './routes/applicationsRoutes.js';
@@ -8,12 +9,14 @@ import usersRoutes from './routes/usersRoutes.js';
 const app = express();
 
 // Middleware to parse incoming JSON requests
-app.use(express.json());
+
+app.use(morgan('tiny'));
 
 // Main route (for testing)
 app.get('/', (req, res) => {
   res.send('TalentHub API is running!');
 });
+app.use(morgan('dev')); // Use morgan for logging HTTP requests
 
 // Link the users routes
 app.use('/users', usersRoutes);
