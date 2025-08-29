@@ -8,8 +8,8 @@ import pool from '../config/db.js';
 export const createApplication = async ({ userId, jobId, resumePath }) => {
   try {
     const [result] = await pool.query(
-      'INSERT INTO applications (userId, jobId, resumePath) VALUES (?, ?, ?)',
-      [userId, jobId, resumePath]
+      'INSERT INTO applications (userId, jobId, resumePath, status) VALUES (?, ?, ?, ?)',
+      [userId, jobId, resumePath, 'pending']
     );
     return result.insertId;
   } catch (error) {

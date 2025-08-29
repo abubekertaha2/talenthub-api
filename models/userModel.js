@@ -32,3 +32,18 @@ export const createUser = async ({ name, email, password, role }) => {
     throw new Error('Database error while creating user.');
   }
 };
+
+/**
+ * Deletes a user from the database by ID.
+ * @param {string} userId - The ID of the user to delete.
+ * @returns {Promise<number>} The number of affected rows.
+ */
+export const deleteUserById = async (userId) => {
+    try {
+        const [result] = await pool.query('DELETE FROM users WHERE id = ?', [userId]);
+        return result.affectedRows;
+    } catch (error) {
+        console.error('Error deleting user by ID:', error);
+        throw new Error('Database error while deleting user.');
+    }
+};

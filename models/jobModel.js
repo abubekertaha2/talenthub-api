@@ -61,3 +61,22 @@ export const deleteJob = async (jobId) => {
     throw new Error('Database error while deleting job.');
   }
 };
+
+/**
+ * Updates a job posting in the database.
+ * @param {string} id The job ID.
+ * @param {object} updates The fields to update (e.g., { title, description }).
+ */
+export const updateJobInDB = async (id, updates) => {
+    console.log('--- Running the corrected update function ---');
+    // Dynamically build the SET clause for the SQL query
+    const setClause = Object.keys(updates).map(key => `${key} = ?`).join(', ');
+    const values = Object.values(updates);
+    values.push(id);
+
+    const [result] = await pool.query(
+        `UPDATE jobs SET ${setClause} WHERE id = ?`,
+        values
+    );
+    return result.affectedRows;
+};

@@ -12,7 +12,7 @@ router.post('/', protect, authorize('Applicant'), createNewApplication);
 // @route   GET /applications
 // @desc    Applicant gets their applications
 // @access  Private (Applicant only)
-router.get('/', protect, authorize('Applicant'), getMyApplications);
+router.get('/my', protect, authorize('Applicant'), getMyApplications);
 
 // @route   GET /applications/job/:jobId
 // @desc    Employer gets all applications for one of their jobs

@@ -1,8 +1,9 @@
 import express from 'express';
-import 'dotenv/config'; 
+import 'dotenv/config.js'; 
 import authRoutes from './routes/authRoutes.js'; 
 import jobsRoutes from './routes/jobsRoutes.js'; 
 import applicationsRoutes from './routes/applicationsRoutes.js';
+import usersRoutes from './routes/usersRoutes.js';
 
 const app = express();
 
@@ -13,6 +14,9 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('TalentHub API is running!');
 });
+
+// Link the users routes
+app.use('/users', usersRoutes);
 
 // Link the authentication routes
 app.use('/auth', authRoutes);

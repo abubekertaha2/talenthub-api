@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { protect, authorize } from '../middleware/authMiddleware.js';
-import { createJobPosting, getAllJobs, getJobById, deleteJobPosting } from '../controllers/jobsController.js';
+import { createJobPosting, getAllJobs, getJobById, deleteJobPosting, updateJob} from '../controllers/jobsController.js';
 
 const router = Router();
 
@@ -18,6 +18,11 @@ router.get('/', getAllJobs);
 // @desc    View a single job
 // @access  Public
 router.get('/:id', getJobById);
+
+// @route   PATCH /jobs/:id
+// @desc    Employer updates their own job
+// @access  Private
+router.patch('/:id', protect, authorize('Employer'), updateJob);
 
 // @route   DELETE /jobs/:id
 // @desc    Employer deletes their own job

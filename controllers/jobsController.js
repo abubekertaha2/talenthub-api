@@ -1,4 +1,4 @@
-import { createJob, findAllJobs, findJobById, deleteJob } from '../models/jobModel.js';
+import { createJob, findAllJobs, findJobById, deleteJob, updateJobInDB } from '../models/jobModel.js';
 
 /**
  * Handles creating a new job posting. (Employer only)
@@ -68,6 +68,37 @@ export const deleteJobPosting = async (req, res) => {
     }
 
     res.status(200).json({ message: 'Job deleted successfully!' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+};
+
+/**
+ * Handles updating a job posting. (Employer only, must be the creator)
+ */
+export const updateJob = async (req, res) => {
+  const { id } = req.params;
+  const updates = req.body; // <--- This is the key change
+
+  try {
+    const job = await findJobById(id);
+    if (!job) {
+      return res.status(404).json({ message: 'Job not found.' });
+    }
+
+    // Check if the authenticated user is the one who created the job
+    if (job.createdBy !== req.user.id) {
+      return res.status(403).json({ message: 'Not authorized to update this job.' });
+    }
+
+    // Now, call the model function to perform the update
+    const affectedRows = await updateJobInDB(id, updates);
+    if (affectedRows === 0) {
+      return res.status(404).json({ message: 'Job not found or no changes were made.' });
+    }
+
+    res.status(200).json({ message: 'Job updated successfully!' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
